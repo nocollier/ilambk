@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ilambk"
+version = "0.1"
+dependencies = [
+    "ilamb","numpy","pandas","plotly","xarray","matplotlib","cartopy"
+]
