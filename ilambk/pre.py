@@ -119,14 +119,13 @@ def prepare_cluster(
                 )
             )
             stack.append(f"{mod.name} {year} {row}")
-            row += size
 
             # Build and write coordinate values for this model
             lat, lon = np.meshgrid(var.lat, var.lon, indexing="ij")
             lat = np.ma.masked_array(lat, mask=mask).compressed()
             lon = np.ma.masked_array(lon, mask=mask).compressed()
             area = np.ma.masked_array(var.area, mask=mask).compressed()
-            size = lat.size
+            row += lat.size
             names = list(columns.keys())
             np.savetxt(
                 os.path.join(pathname, f"coords.{mod.name}"),
