@@ -8,3 +8,6 @@ version = "0.1"
 dependencies = [
     "ilamb","numpy","pandas","plotly","xarray","matplotlib","cartopy"
 ]
+
+[tool.setuptools.package-data]
+ilambk = ["*.sh"]

@@ -1,6 +1,7 @@
 """Functions for using ILAMB to prepare data for clustering."""
 import os
 import pickle
+from importlib.resources import files
 from typing import List, Union
 
 import numpy as np
@@ -141,7 +142,26 @@ def prepare_cluster(
         os.path.join(pathname, f"stack.{casename}"), encoding="UTF-8", mode="w"
     ) as file:
         file.write("\n".join(stack))
-    with open(
-        os.path.join(pathname, f"names.{casename}"), mode="wb"
-    ) as file:
+    with open(os.path.join(pathname, f"names.{casename}"), mode="wb") as file:
         pickle.dump(names, file)
+
+
+def install_scripts(casename: str, cluster_bin: str):
+    """."""
+
+    content = files("ilambk").joinpath("job.sh").read_text(encoding="UTF-8")
+    content = content.replace("CASENAME", casename)
+    content = content.replace(
+        "DATALOCATION", os.path.join(os.getcwd(), casename, "data")
+    )
+    content = content.replace("CLUSTERBIN", cluster_bin)
+    if not os.path.isdir(casename):
+        os.makedirs(casename)
+    with open(os.path.join(casename, "job.sh"), encoding="UTF-8", mode="w") as file:
+        file.write(content)
+    with open(
+        os.path.join(casename, "run_clustering.sh"), encoding="UTF-8", mode="w"
+    ) as file:
+        file.write(
+            files("ilambk").joinpath("run_clustering.sh").read_text(encoding="UTF-8")
+        )
