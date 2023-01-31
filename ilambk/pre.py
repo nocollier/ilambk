@@ -135,13 +135,13 @@ def prepare_cluster(
 
     # Write files
     np.savetxt(
-        os.path.join(pathname, "obs.raw.{casename}"), np.hstack(data).T, delimiter=" "
+        os.path.join(pathname, f"obs.raw.{casename}"), np.hstack(data).T, delimiter=" "
     )
     with open(
-        os.path.join(pathname, "stack.{casename}"), encoding="UTF-8", mode="w"
+        os.path.join(pathname, f"stack.{casename}"), encoding="UTF-8", mode="w"
     ) as file:
         file.write("\n".join(stack))
     with open(
-        os.path.join(pathname, "names.{casename}"), encoding="UTF-8", mode="w"
+        os.path.join(pathname, f"names.{casename}"), mode="wb"
     ) as file:
         pickle.dump(names, file)
