@@ -1,12 +1,18 @@
 """Functions for using ILAMB to prepare data for clustering."""
 import os
 import pickle
-from importlib.resources import files
+import sys
 from typing import List, Union
 
 import numpy as np
 from ILAMB.ModelResult import ModelResult
 from ILAMB.Regions import Regions
+
+if sys.version_info > (3, 9):
+    from importlib.resources import files
+else:
+    from importlib_resources import files
+
 
 __all__ = ["prepare_cluster"]
 
