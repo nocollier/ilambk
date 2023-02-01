@@ -9,8 +9,14 @@ dependencies = [
     "ilamb","numpy","pandas","plotly","xarray","matplotlib","cartopy","importlib_resources"
 ]
 
+[tools.setuptools.packages]
+find = {}
+
 [tool.setuptools.packages.find]
-where = ["ilambk"]
+where = ["."]
+include = ["ilambk"]
 
 [tool.setuptools.package-data]
 ilambk = ["*.sh"]
+
+
