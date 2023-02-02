@@ -14,7 +14,7 @@ else:
     from importlib_resources import files
 
 
-__all__ = ["prepare_cluster"]
+__all__ = ["prepare_cluster", "install_scripts"]
 
 
 def prepare_cluster(
