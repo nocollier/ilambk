@@ -2,10 +2,7 @@
 import os
 import pickle
 
-import numpy as np
 import pandas as pd
-
-__all__ = ["build_cluster_dataframe", "build_centroid_dataframe"]
 
 
 def build_cluster_dataframe(casename: str):
@@ -57,12 +54,13 @@ def build_cluster_dataframe(casename: str):
 
 
 def build_centroid_dataframe(casename: str):
-    """."""
+    """Walk through the case directory and build a dataframe with the
+    unstandardized centroid results."""
     path = os.path.join(casename, "data")
-    name_file = os.path.join(path, f"name.{casename}")
-    if not os.path.isfile(name_file):
-        raise ValueError(f"{name_file} not found")
-    with open(name_file, "rb") as pkl:
+    names_file = os.path.join(path, f"names.{casename}")
+    if not os.path.isfile(names_file):
+        raise ValueError(f"{names_file} not found")
+    with open(names_file, "rb") as pkl:
         names = pickle.load(pkl)
     dfs = []
     for root, _, files in os.walk(casename):
@@ -81,4 +79,4 @@ def build_centroid_dataframe(casename: str):
                 ).drop(columns="junk")
                 dfc["k"] = kval
                 dfs.append(dfc)
-    return pd.concat(dfs).reset_index()
+    return pd.concat(dfs).reset_index(drop=True)
